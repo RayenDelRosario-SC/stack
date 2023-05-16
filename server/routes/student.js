@@ -1,24 +1,24 @@
 const router = require("express").Router();
 const pool = require("../db");
 
+
 //trainer route
 
 // Create a trainer
 
-router.post("/student", async (req, res) => {
+router.post("/student", async(req, res) => {
     try {
-        const { student_fname, student_lname, student_email, student_password, student_number, student_address } = req.body;
-        const newStudent = await pool.query("INSERT INTO student_tbl (student_fname, student_lname, student_email, student_password, student_number, student_address) VALUES($1, $2, $3, $4, $5, $6) RETURNING *", 
-        [student_fname, student_lname, student_email, student_password, student_number, student_address]
-        );
-        
-        
-        res.json(newStudent.rows[0]);
-
+      const { s_fname, s_lname, s_email, s_password, s_number, s_address, trainers_id } = req.body;
+      const newStudent = await pool.query("INSERT INTO student_tbl (student_fname, student_lname, student_email, student_password, student_number, student_address, trainers_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *", 
+      [s_fname, s_lname, s_email, s_password, s_number, s_address, trainers_id]
+      );
+          
+      res.json(newStudent.rows[0]);
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
-});
+  });
+  
 
 // Get all trainer
 
